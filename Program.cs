@@ -7,7 +7,7 @@ namespace EFRelatedData
         static void Main(string[] args)
         {
             Sample.Run();
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }

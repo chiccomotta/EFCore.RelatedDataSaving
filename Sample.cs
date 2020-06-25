@@ -39,14 +39,14 @@ namespace EFRelatedData
         
             #region Come aggiornare solo le properties passate nella request
             
-            // Request che arriva dal client tramite API
+            // Request che arriva dal client tramite API (aggiorno solo 2 proprietà Url e Ranking)
             var request = new BlogDto()
             {
                 Url = "Nuovo Blog del cacchio",
                 Ranking = 9
             };
 
-            // Partial Update
+            // Partial Update (nome e tipo proprietà devono matchare)
             using (var context = new BloggingContext())
             {
                 // Entità da aggiornare

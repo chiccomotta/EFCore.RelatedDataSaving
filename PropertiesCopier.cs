@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 
 namespace EFRelatedData
 {
@@ -59,11 +58,5 @@ namespace EFRelatedData
 
             return Convert.ChangeType(value, t);
         }
-    }
-
-    public class BlogDto
-    {
-        public string Url { get; set; }
-        public int? Ranking { get; set; }
     }
 }

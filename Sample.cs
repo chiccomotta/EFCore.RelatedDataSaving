@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,11 +21,14 @@ namespace EFRelatedData
                 var blog = new Blog
                 {
                     Url = "http://blogs.msdn.com/dotnet",
+                    Note = "Note varie",
+                    InsertDate = DateTime.Now,
+                    Ranking = 1,
                     Posts = new List<Post>
                     {
-                        new Post { Title = "Intro to C#" },
-                        new Post { Title = "Intro to VB.NET" },
-                        new Post { Title = "Intro to F#" }
+                        new Post {Title = "Intro to C#"},
+                        new Post {Title = "Intro to VB.NET"},
+                        new Post {Title = "Intro to F#"}
                     }
                 };
 
@@ -32,7 +36,32 @@ namespace EFRelatedData
                 context.SaveChanges();
             }
             #endregion
+        
+            #region Come aggiornare solo le properties passate nella request
+            
+            // Request che arriva dal client tramite API
+            var request = new BlogDto()
+            {
+                Url = "Nuovo Blog del cacchio",
+                Ranking = 9
+            };
 
+            // Partial Update
+            using (var context = new BloggingContext())
+            {
+                // Entità da aggiornare
+                var blog = context.Blogs.Single(b => b.BlogId == 1);
+
+                // Copio solo le proprietà presenti nella request che hanno stesso nome e tipo
+                blog.CopyPropertiesFrom(request);
+
+                // Update
+                context.Blogs.Update(blog);
+                context.SaveChanges();
+            }
+            #endregion
+
+            /*
             #region AddingRelatedEntity
             using (var context = new BloggingContext())
             {
@@ -65,6 +94,7 @@ namespace EFRelatedData
                 context.SaveChanges();
             }
             #endregion
+            */
         }
 
         public class BloggingContext : DbContext
@@ -82,6 +112,9 @@ namespace EFRelatedData
         {
             public int BlogId { get; set; }
             public string Url { get; set; }
+            public string Note { get; set; }
+            public DateTime? InsertDate { get; set; }
+            public int? Ranking { get; set; }
 
             public List<Post> Posts { get; set; }
         }

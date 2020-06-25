@@ -47,7 +47,7 @@ namespace EFRelatedData
         {
             var t = conversion;
 
-            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>))) 
+            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>)) 
             {
                 if (value == null) 
                 { 

@@ -48,7 +48,7 @@ namespace EFRelatedData
             //    Ranking = 9
             //};
 
-            var json = @"{ 'Url': 'Nuovo Blog del cacchio', 'Ranking': 9 }";
+            var json = @"{ 'Url': 'Nuovo Blog dello stracacchio del cavolo', 'Ranking': 42 }";
             var request = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(json);            //var request = JsonConvert.DeserializeObject<JObject>(json);
 
             // Partial Update (nome e tipo proprietà devono matchare)

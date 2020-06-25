@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EFRelatedData
 {
@@ -40,20 +42,26 @@ namespace EFRelatedData
             #region Come aggiornare solo le properties passate nella request
             
             // Request che arriva dal client tramite API (aggiorno solo 2 proprietà Url e Ranking)
-            var request = new BlogDto()
-            {
-                Url = "Nuovo Blog del cacchio",
-                Ranking = 9
-            };
+            //var request = new BlogDto()
+            //{
+            //    Url = "Nuovo Blog del cacchio",
+            //    Ranking = 9
+            //};
+
+            var json = @"{ 'Url': 'Nuovo Blog del cacchio', 'Ranking': 9 }";
+            var request = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(json);            //var request = JsonConvert.DeserializeObject<JObject>(json);
 
             // Partial Update (nome e tipo proprietà devono matchare)
             using (var context = new BloggingContext())
             {
                 // Entità da aggiornare
                 var blog = context.Blogs.Single(b => b.BlogId == 1);
+                
+                // Copy to a static Album instance
+                //blog = request.ToObject<Blog>();
 
                 // Copio solo le proprietà presenti nella request che hanno stesso nome e tipo
-                blog.CopyPropertiesFrom(request);
+                blog = PropertiesCopier.CopyPropertiesFrom2(blog, request);
 
                 // Update
                 context.Blogs.Update(blog);

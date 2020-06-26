@@ -1,0 +1,19 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/EF.WebApi",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:54051/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "EF.WebApi": {
+      "commandName": "IISExpress"
+    }
+  }
+}

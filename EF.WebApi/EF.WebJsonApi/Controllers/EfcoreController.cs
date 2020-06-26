@@ -16,6 +16,18 @@ namespace EF.WebJsonApi.Controllers
             _logger = logger;
         }
 
+        /*
+         * Esempio di request: invio solo i campi da aggiornare:
+         *
+                {
+                  "Url": "http://www.cicciopino.it",
+                  "Ranking": 77,
+                  "InsertDate": "2020-04-23T18:25:43.511Z"
+                }
+         *
+         * 
+         */
+
         [HttpPost]
         public ActionResult Process([FromBody] Dictionary<string, dynamic> request)
         {

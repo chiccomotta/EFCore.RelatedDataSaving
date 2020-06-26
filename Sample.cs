@@ -9,7 +9,26 @@ namespace EFRelatedData
 {
     public class Sample
     {
-        public static void Run()
+        public static void Example1(Dictionary<string, dynamic> request)
+        {
+            SetupDatabase();
+
+            // Partial Update (nome e tipo proprietà devono matchare)
+            using (var context = new BloggingContext())
+            {
+                // Entità da aggiornare
+                var blog = context.Blogs.Single(b => b.BlogId == 1);
+                
+                // Copio solo le proprietà presenti nella request che hanno stesso nome e tipo
+                blog = PropertiesCopier.CopyPropertiesFrom(blog, request);
+
+                // Update
+                context.Blogs.Update(blog);
+                context.SaveChanges();
+            }
+        }
+
+        private static void SetupDatabase()
         {
             using (var context = new BloggingContext())
             {
@@ -17,7 +36,6 @@ namespace EFRelatedData
                 context.Database.EnsureCreated();
             }
 
-            #region AddingGraphOfEntities
             using (var context = new BloggingContext())
             {
                 var blog = new Blog
@@ -37,38 +55,21 @@ namespace EFRelatedData
                 context.Blogs.Add(blog);
                 context.SaveChanges();
             }
-            #endregion
-        
-            #region Come aggiornare solo le properties passate nella request
-            
-            // Request che arriva dal client tramite API (aggiorno solo 2 proprietà Url e Ranking)
-            //var request = new BlogDto()
-            //{
-            //    Url = "Nuovo Blog del cacchio",
-            //    Ranking = 9
-            //};
+        }
 
-            var json = @"{ 'Url': 'Nuovo Blog dello stracacchio del cavolo', 'Ranking': 42 }";
-            var request = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(json);            //var request = JsonConvert.DeserializeObject<JObject>(json);
-
-            // Partial Update (nome e tipo proprietà devono matchare)
+        public static Blog GetBlogById(int id)
+        {
             using (var context = new BloggingContext())
             {
                 // Entità da aggiornare
-                var blog = context.Blogs.Single(b => b.BlogId == 1);
-                
-                // Copy to a static Album instance
-                //blog = request.ToObject<Blog>();
-
-                // Copio solo le proprietà presenti nella request che hanno stesso nome e tipo
-                blog = PropertiesCopier.CopyPropertiesFrom2(blog, request);
-
-                // Update
-                context.Blogs.Update(blog);
-                context.SaveChanges();
+                return  context.Blogs.Single(b => b.BlogId == 1);
             }
-            #endregion
+        }
 
+        public static void Run()
+        {
+          SetupDatabase();
+          
             /*
             #region AddingRelatedEntity
             using (var context = new BloggingContext())

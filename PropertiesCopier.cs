@@ -23,7 +23,7 @@ namespace EFRelatedData
             }
         }
 
-        public static T CopyPropertiesFrom2<T>(T self, Dictionary<string, dynamic> parent)
+        public static T CopyPropertiesFrom<T>(T self, Dictionary<string, dynamic> parent)
         {
             var toProperties = self.GetType().GetProperties();
 

@@ -28,6 +28,41 @@ namespace EFRelatedData
             }
         }
 
+        public static void Example2(int? entityId)
+        {
+            //SetupDatabase();
+
+            using (var context = new BloggingContext())
+            {
+                Blog newBlog;
+                if (entityId.HasValue)
+                {
+                    newBlog = new Blog()
+                    {
+                        BlogId = entityId.Value,
+                        InsertDate = DateTime.Now,
+                        Note = "Blog N. 2",
+                        Ranking = 1,
+                        Url = "http://www.blog2.com"
+                    };
+                }
+                else
+                {
+                    newBlog = new Blog()
+                    {
+                        InsertDate = DateTime.Now,
+                        Note = "NEW",
+                        Ranking = 3,
+                        Url = "http://www.newblog.com"
+                    };
+                }
+
+                context.Blogs.AddOrUpdate<Blog>(context, b => b.BlogId, newBlog);
+                context.SaveChanges();
+            }
+        }
+
+
         private static void SetupDatabase()
         {
             using (var context = new BloggingContext())

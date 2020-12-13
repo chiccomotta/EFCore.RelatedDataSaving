@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace EF.WebJsonApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("test")]
     public class EfcoreController : ControllerBase
     {
         private readonly ILogger<EfcoreController> _logger;
@@ -36,5 +36,16 @@ namespace EF.WebJsonApi.Controllers
             var blog = Sample.GetBlogById(1);
             return Ok(blog);
         }
+
+        [HttpGet]
+        [Route("entity/{id:int?}")]
+        public ActionResult Process(int? id)
+        {
+            Sample.Example2(id);
+
+            var blog = Sample.GetBlogById(id.Value);
+            return Ok(blog);
+        }
+
     }
 }

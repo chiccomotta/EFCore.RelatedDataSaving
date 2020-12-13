@@ -34,10 +34,10 @@ namespace EFRelatedData
 
             using (var context = new BloggingContext())
             {
-                Blog newBlog;
+                Blog blog;
                 if (entityId.HasValue)
                 {
-                    newBlog = new Blog()
+                    blog = new Blog()
                     {
                         BlogId = entityId.Value,
                         InsertDate = DateTime.Now,
@@ -48,7 +48,7 @@ namespace EFRelatedData
                 }
                 else
                 {
-                    newBlog = new Blog()
+                    blog = new Blog()
                     {
                         InsertDate = DateTime.Now,
                         Note = "NEW",
@@ -57,7 +57,7 @@ namespace EFRelatedData
                     };
                 }
 
-                context.Blogs.AddOrUpdate<Blog>(context, b => b.BlogId, newBlog);
+                context.Blogs.AddOrUpdate<Blog>(context, b => b.BlogId, blog);
                 context.SaveChanges();
             }
         }

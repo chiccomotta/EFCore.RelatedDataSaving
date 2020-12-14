@@ -41,9 +41,9 @@ namespace EFRelatedData
                     {
                         BlogId = entityId.Value,
                         InsertDate = DateTime.Now,
-                        Note = "Blog N. 2",
-                        Ranking = 1,
-                        Url = "http://www.blog2.com"
+                        Note = "Blog N. 222",
+                        Ranking = 222,
+                        Url = "http://www.blog2222.com"
                     };
                 }
                 else
@@ -57,7 +57,7 @@ namespace EFRelatedData
                     };
                 }
 
-                context.Blogs.AddOrUpdate<Blog>(context, b => b.BlogId, blog);
+                context.Blogs.AddOrUpdate<Blog>(b => b.BlogId, blog);
                 context.SaveChanges();
             }
         }

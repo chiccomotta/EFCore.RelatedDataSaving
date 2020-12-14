@@ -43,7 +43,7 @@ namespace EF.WebJsonApi.Controllers
         {
             Sample.Example2(id);
 
-            var blog = Sample.GetBlogById(id.Value);
+            var blog = Sample.GetBlogById(id ?? 1);
             return Ok(blog);
         }
 

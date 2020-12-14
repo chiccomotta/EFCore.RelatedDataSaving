@@ -53,7 +53,12 @@ namespace EFRelatedData
                         InsertDate = DateTime.Now,
                         Note = "NEW",
                         Ranking = 3,
-                        Url = "http://www.newblog.com"
+                        Url = "http://www.newblog.com",
+                        Posts = new List<Post>
+                        {
+                            new Post {Title = "Advanced C# programming"},
+                            new Post {Title = "Advanced VB.NET programming"}
+                        }
                     };
                 }
 
@@ -61,7 +66,6 @@ namespace EFRelatedData
                 context.SaveChanges();
             }
         }
-
 
         private static void SetupDatabase()
         {
@@ -96,8 +100,7 @@ namespace EFRelatedData
         {
             using (var context = new BloggingContext())
             {
-                // Entità da aggiornare
-                return  context.Blogs.Single(b => b.BlogId == 1);
+                return  context.Blogs.FirstOrDefault(b => b.BlogId == id);
             }
         }
 

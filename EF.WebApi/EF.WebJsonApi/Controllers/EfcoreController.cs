@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using EFRelatedData;
+﻿using EFRelatedData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace EF.WebJsonApi.Controllers
 {
@@ -46,6 +46,5 @@ namespace EF.WebJsonApi.Controllers
             var blog = Sample.GetBlogById(id ?? 1);
             return Ok(blog);
         }
-
     }
 }
